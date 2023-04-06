@@ -55,6 +55,14 @@ export const Btn = styled.button`
   margin-bottom: 10px;
 `
 
+export const BtnSave = styled(Btn)`
+  align-self: center;
+  margin-bottom: 30px;
+  background-color: red;
+  height: 60px;
+  width: 100px;
+`
+
 export const EmptyDiv = styled.div`
   display: flex;
   flex-direction: column;

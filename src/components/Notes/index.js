@@ -1,5 +1,5 @@
 // Write your code here
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {v4} from 'uuid'
 import NoteItem from '../NoteItem'
 import {
@@ -14,12 +14,24 @@ import {
   EmptyImage,
   NotesDiv,
   TaEle,
+  BtnSave,
 } from './styledComponents'
 
 const Notes = () => {
   const [notesList, setNotesList] = useState([])
   const [title, setTitle] = useState('')
   const [note, setNote] = useState('')
+
+  useEffect(() => {
+    const nl = localStorage.getItem('notes')
+    const parsedList = JSON.parse(nl)
+    if (parsedList !== null) {
+      setNotesList(parsedList)
+    } else {
+      setNotesList([])
+    }
+  }, [])
+
   const emptyNotesView = () => (
     <EmptyDiv>
       <EmptyImage
@@ -33,10 +45,12 @@ const Notes = () => {
 
   const onSubmitForm = event => {
     event.preventDefault()
-    const newNote = {id: v4(), title, note}
-    setNotesList(prev => [...prev, newNote])
-    setTitle('')
-    setNote('')
+    if (title !== '' && note !== '') {
+      const newNote = {id: v4(), title, note}
+      setNotesList(prev => [...prev, newNote])
+      setTitle('')
+      setNote('')
+    }
   }
 
   return (
@@ -63,6 +77,13 @@ const Notes = () => {
         </TaEle>
         <Btn type="submit">Add</Btn>
       </Form>
+      <BtnSave
+        onClick={() => {
+          localStorage.setItem('notes', JSON.stringify(notesList))
+        }}
+      >
+        Save
+      </BtnSave>
 
       {notesList.length === 0 ? (
         emptyNotesView()
