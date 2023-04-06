@@ -24,3 +24,15 @@ export const Para = styled.p`
   color: #475569;
   margin-bottom: 15px;
 `
+export const BtnDel = styled.button`
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 15px;
+  padding: 5px;
+  align-self: flex-end;
+  border-radius: 5px;
+  background-color: red;
+  margin-bottom: 15px;
+`

@@ -58,7 +58,7 @@ export const Btn = styled.button`
 export const BtnSave = styled(Btn)`
   align-self: center;
   margin-bottom: 30px;
-  background-color: red;
+  background-color: green;
   height: 60px;
   width: 100px;
 `

@@ -53,6 +53,10 @@ const Notes = () => {
     }
   }
 
+  const deleteNote = id => {
+    setNotesList(notesList.filter(each => each.id !== id))
+  }
+
   return (
     <MainDiv>
       <Head>Notes</Head>
@@ -90,7 +94,13 @@ const Notes = () => {
       ) : (
         <NotesDiv>
           {notesList.map(each => (
-            <NoteItem key={each.id} title={each.title} note={each.note} />
+            <NoteItem
+              key={each.id}
+              title={each.title}
+              note={each.note}
+              deleteNote={deleteNote}
+              id={each.id}
+            />
           ))}
         </NotesDiv>
       )}
