@@ -14,23 +14,19 @@ import {
   EmptyImage,
   NotesDiv,
   TaEle,
-  BtnSave,
 } from './styledComponents'
 
 const Notes = () => {
-  const [notesList, setNotesList] = useState([])
+  const storedNotesList = JSON.parse(localStorage.getItem('notes'))
+  const [notesList, setNotesList] = useState(
+    storedNotesList !== null ? storedNotesList : [],
+  )
   const [title, setTitle] = useState('')
   const [note, setNote] = useState('')
 
   useEffect(() => {
-    const nl = localStorage.getItem('notes')
-    const parsedList = JSON.parse(nl)
-    if (parsedList !== null) {
-      setNotesList(parsedList)
-    } else {
-      setNotesList([])
-    }
-  }, [])
+    localStorage.setItem('notes', JSON.stringify(notesList))
+  }, [notesList])
 
   const emptyNotesView = () => (
     <EmptyDiv>
@@ -81,13 +77,6 @@ const Notes = () => {
         </TaEle>
         <Btn type="submit">Add</Btn>
       </Form>
-      <BtnSave
-        onClick={() => {
-          localStorage.setItem('notes', JSON.stringify(notesList))
-        }}
-      >
-        Save
-      </BtnSave>
 
       {notesList.length === 0 ? (
         emptyNotesView()
